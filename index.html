@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Play:wght@400;700&family=Playfair+Display:wght@800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CosmixWear Ecommerce</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    #cart-items { max-height: 300px; overflow-y: auto; }
+    .hamburger > div { transition: all 0.3s ease; }
+    .hamburger.active > div:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.active > div:nth-child(2) { opacity: 0; }
+    .hamburger.active > div:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+<!-- HEADER -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <div class="container mx-auto flex flex-col md:flex-row items-center justify-between p-4 md:p-6 space-y-4 md:space-y-0">
+    <div class="flex items-center justify-between w-full md:w-auto">
+      <img src="logo.png.png" alt="Logo" class="h-16 object-contain">
+      <span class="text-2xl font-extrabold text-red-600 md:hidden">COSMIXWEAR</span>
+    </div>
+    <a href="#" class="hidden md:block text-2xl font-extrabold text-red-600 text-center flex-1">COSMIXWEAR</a>
+    <nav class="flex flex-col md:flex-row items-center justify-end space-y-2 md:space-y-0 md:space-x-8 text-lg font-semibold w-full md:w-auto">
+      <a href="#" class="hover:text-red-600 transition">Home</a>
+      <a href="#shop" class="hover:text-red-600 transition">Shop</a>
+      <button id="cart-btn" class="relative hover:text-red-600 transition focus:outline-none">
+        Cart
+        <span id="cart-count" class="absolute -top-2 -right-3 bg-red-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">0</span>
+      </button>
+    </nav>
+  </div>
+
+  <button id="hamburger" class="hamburger flex flex-col space-y-1 md:hidden focus:outline-none ml-4 mb-2">
+    <div class="w-6 h-0.5 bg-gray-800"></div>
+    <div class="w-6 h-0.5 bg-gray-800"></div>
+    <div class="w-6 h-0.5 bg-gray-800"></div>
+  </button>
+  <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+    <a href="#" class="block p-4 border-b hover:bg-red-100 transition">Home</a>
+    <a href="#shop" class="block p-4 border-b hover:bg-red-100 transition">Shop</a>
+    <button id="cart-btn-mobile" class="w-full text-left p-4 hover:bg-red-100 transition focus:outline-none">Cart (<span id="cart-count-mobile">0</span>)</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative bg-red-600 text-white flex flex-col justify-center items-center h-96 px-6 text-center">
+  <h1 class="text-4xl md:text-6xl font-extrabold max-w-3xl leading-tight mb-4 drop-shadow-lg">Elevate Your Look, Embrace the Cosmos</h1>
+  <p class="text-xl md:text-4xl max-w-xl drop-shadow" style="font-family: 'Great Vibes', cursive;">CosmixWear offers stylish, comfortable clothing for every day. Feel confident and unique with our cosmic-inspired designs.</p>
+  <a href="#shop" class="mt-8 bg-white text-red-600 font-bold px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 transition">Shop Now</a>
+</section>
+
+<!-- SHOP -->
+<section id="shop" class="container mx-auto px-4 py-12 max-w-7xl">
+  <h2 class="text-3xl font-extrabold text-gray-900 mb-10 text-center">Featured Products</h2>
+  <div id="products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <!-- JS will insert products here -->
+  </div>
+</section>
+
+<!-- NEW ARRIVALS -->
+<section class="container mx-auto px-4 py-12 max-w-7xl">
+  <h2 class="text-3xl font-extrabold text-gray-900 mb-10 text-center">New Arrivals</h2>
+  <div id="new-arrivals" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <!-- JS will insert products here -->
+  </div>
+</section>
+
+<!-- BEST SELLERS -->
+<section class="container mx-auto px-4 py-12 max-w-7xl">
+  <h2 class="text-3xl font-extrabold text-gray-900 mb-10 text-center">Best Sellers</h2>
+  <div id="best-sellers" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    <!-- JS will insert products here -->
+  </div>
+</section>
+
+<!-- CART -->
+<aside id="cart-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-transform z-50 flex flex-col">
+  <header class="flex justify-between items-center p-4 border-b">
+    <h3 class="text-xl font-semibold">Your Cart</h3>
+    <button id="cart-close" class="text-gray-600 hover:text-red-600 text-2xl font-bold focus:outline-none">&times;</button>
+  </header>
+  <div id="cart-items" class="flex-grow overflow-y-auto p-4 space-y-4"></div>
+  <footer class="p-4 border-t">
+    <div class="flex justify-between text-lg font-semibold mb-4">
+      <span>Total:</span>
+      <span id="cart-total">&#8377;0</span>
+    </div>
+    <button class="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition">Checkout</button>
+  </footer>
+</aside>
+
+<!-- FOOTER -->
+<footer class="bg-gray-100 mt-auto py-6 text-center text-gray-700 text-sm">
+  <p>&copy; 2025 COSMIXWEARS. <a href="#" class="text-red-600 hover:underline">About</a> | <a href="#" class="text-red-600 hover:underline">Contact</a> | <a href="#" class="text-red-600 hover:underline">Terms</a></p>
+</footer>
+
+<!-- SCROLL TO TOP -->
+<button id="scroll-top" class="fixed bottom-6 right-6 bg-red-600 text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition hidden" title="Scroll to top">&#8679;</button>
+
+<script>
+  const products = [
+    { id: 1, name: "Classic Navyblue Tee", price: 799, image: "tshirt1.jpeg", alt: "Classic Navyblue T-shirt" },
+    { id: 2, name: "Vintage Black Tee", price: 899, image: "tshirt2.jpeg", alt: "Vintage Black T-shirt" },
+    { id: 3, name: "Sporty Blue Tee", price: 699, image: "tshirt3.jpeg", alt: "Sporty Blue T-shirt" },
+    { id: 4, name: "Urban Grey Tee", price: 649, image: "tshirt4.jpeg", alt: "Urban Grey T-shirt" },
+    { id: 5, name: "Graphic Print Tee", price: 899, image: "tshirt5.jpeg", alt: "Graphic Print T-shirt" },
+    { id: 6, name: "Striped Casual Tee", price: 799, image: "tshirt6.jpeg", alt: "Striped Casual T-shirt" },
+    { id: 7, name: "Bold Red Tee", price: 749, image: "tshirt7.jpeg", alt: "Bold Red Tee" },
+    { id: 8, name: "Cosmic White Tee", price: 829, image: "tshirt8.jpeg", alt: "Cosmic White Tee" }
+  ];
+
+  let cart = [];
+
+  const renderSection = (productArray, containerId) => {
+    const container = document.getElementById(containerId);
+    productArray.forEach(product => {
+      const card = document.createElement('article');
+      card.className = 'bg-white rounded-lg shadow-md hover:shadow-xl transition p-4 flex flex-col';
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.alt}" class="rounded-lg object-cover h-48 w-full mb-4" loading="lazy" />
+        <h3 class="text-lg font-semibold mb-2">${product.name}</h3>
+        <p class="text-red-600 font-bold mb-4">&#8377;${product.price}</p>
+        <button class="mt-auto bg-red-600 text-white py-2 rounded-lg hover:bg-red-700 transition add-cart-btn" data-id="${product.id}">Add to Cart</button>
+      `;
+      container.appendChild(card);
+    });
+  };
+
+  renderSection(products.slice(0, 4), 'products');
+  renderSection(products.slice(4, 8), 'new-arrivals');
+  renderSection(products.slice(0, 4), 'best-sellers');
+
+  const updateCartCount = () => {
+    const count = cart.reduce((acc, item) => acc + item.qty, 0);
+    document.getElementById('cart-count').textContent = count;
+    document.getElementById('cart-count-mobile').textContent = count;
+  };
+
+  const renderCart = () => {
+    const container = document.getElementById('cart-items');
+    container.innerHTML = '';
+    if (cart.length === 0) {
+      container.innerHTML = '<p class="text-center text-gray-500">Your cart is empty.</p>';
+      document.getElementById('cart-total').textContent = '₹0';
+      return;
+    }
+    cart.forEach(item => {
+      const product = products.find(p => p.id === item.id);
+      const div = document.createElement('div');
+      div.className = 'flex items-center space-x-4';
+      div.innerHTML = `
+        <img src="${product.image}" alt="${product.alt}" class="w-16 h-16 rounded object-cover" />
+        <div class="flex-grow">
+          <h4 class="font-semibold">${product.name}</h4>
+          <p class="text-red-600">&#8377;${product.price} x ${item.qty}</p>
+        </div>
+        <button class="text-red-600 hover:text-red-800 font-bold remove-btn" data-id="${item.id}">&times;</button>
+      `;
+      container.appendChild(div);
+    });
+    const total = cart.reduce((acc, item) => acc + products.find(p => p.id === item.id).price * item.qty, 0);
+    document.getElementById('cart-total').textContent = `₹${total}`;
+  };
+
+  const addToCart = id => {
+    const existing = cart.find(item => item.id === id);
+    if (existing) existing.qty += 1;
+    else cart.push({ id, qty: 1 });
+    updateCartCount();
+    renderCart();
+    openCartSidebar();
+  };
+
+  const removeFromCart = id => {
+    cart = cart.filter(item => item.id !== id);
+    updateCartCount();
+    renderCart();
+  };
+
+  document.body.addEventListener('click', e => {
+    if (e.target.classList.contains('add-cart-btn')) {
+      const id = Number(e.target.dataset.id);
+      addToCart(id);
+    }
+    if (e.target.classList.contains('remove-btn')) {
+      const id = Number(e.target.dataset.id);
+      removeFromCart(id);
+    }
+  });
+
+  const cartSidebar = document.getElementById('cart-sidebar');
+  const cartBtn = document.getElementById('cart-btn');
+  const cartBtnMobile = document.getElementById('cart-btn-mobile');
+  const cartCloseBtn = document.getElementById('cart-close');
+
+  const openCartSidebar = () => cartSidebar.classList.remove('translate-x-full');
+  const closeCartSidebar = () => cartSidebar.classList.add('translate-x-full');
+
+  cartBtn.addEventListener('click', openCartSidebar);
+  cartBtnMobile.addEventListener('click', openCartSidebar);
+  cartCloseBtn.addEventListener('click', closeCartSidebar);
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('hidden');
+  });
+
+  const scrollTopBtn = document.getElementById('scroll-top');
+  window.addEventListener('scroll', () => {
+    scrollTopBtn.classList.toggle('hidden', window.scrollY < 300);
+  });
+  scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>
+
+</body>
+</html>
